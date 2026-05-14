@@ -1,37 +1,34 @@
-import BlogSection from "@/components/Blog";
-import CallToAction from "@/components/CallToAction";
-import Clients from "@/components/Home/Clients";
-import Features from "@/components/Home/Features";
-import FeaturesList from "@/components/Home/FeaturesList";
-import Hero from "@/components/Home/Hero";
-import Reviews from "@/components/Home/Reviews";
-import Newsletter from "@/components/Newsletter";
-import Pricing from "@/components/Pricing";
-import Support from "@/components/Support";
-import { Metadata } from "next";
-import { integrations } from "../../../integrations.config";
+import Hero from '@/components/portfolio/Hero';
+import About from '@/components/portfolio/About';
+import Skills from '@/components/portfolio/Skills';
+import Experience from '@/components/portfolio/Experience';
+import Projects from '@/components/portfolio/Projects';
+import CyberLab from '@/components/portfolio/CyberLab';
+import Certifications from '@/components/portfolio/Certifications';
+import Contact from '@/components/portfolio/Contact';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "AI Tool - Next.js Template for AI Tools",
-  description: "This is Home for AI Tool",
-  // other metadata
+  title: 'Jon Masropian — Full Stack Developer | Army Veteran',
+  description: 'Portfolio of Jon Masropian: Full Stack Developer, IT Professional, and U.S. Army Veteran with 22 years of Signal Corps experience. CompTIA Security+ certified. Active Secret Clearance.',
+  openGraph: {
+    title: 'Jon Masropian — Full Stack Developer',
+    description: 'Cybersecurity-aware Full Stack Developer and Army Veteran based in Lawton, OK.',
+    type: 'website',
+  },
 };
 
-export default function Home() {
+export default function PortfolioPage() {
   return (
-    <>
+    <main>
       <Hero />
-      <Features />
-      <FeaturesList />
-      <Pricing />
-      <section className="relative z-20 overflow-hidden pb-20 pt-22.5 lg:pt-27.5 xl:pt-32.5 2xl:pt-45">
-        <Reviews />
-      </section>
-      <Clients />
-      <Support />
-      {integrations.isSanityEnabled && <BlogSection />}
-      <CallToAction />
-      <Newsletter />
-    </>
+      <About />
+      <Skills />
+      <Experience />
+      <Projects />
+      <CyberLab />
+      <Certifications />
+      <Contact />
+    </main>
   );
 }
