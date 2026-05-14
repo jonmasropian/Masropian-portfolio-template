@@ -1,6 +1,6 @@
 export default async function sitemap() {
-  const routes = ["", "/about", "/pricing", "/blog"].map((route) => ({
-    url: `${process.env.SITE_URL}${route}`,
+  const routes = [""].map((route) => ({
+    url: `${process.env.SITE_URL || 'https://jonmasropian.com'}${route}`,
     lastModified: new Date().toISOString(),
   }));
 

@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Github, ExternalLink } from 'lucide-react';
+import { X, GitFork, ExternalLink } from 'lucide-react';
 import { projects } from '@/data/portfolio';
 
 type Project = typeof projects[0];
@@ -63,7 +63,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noreferrer"
                     className="flex items-center gap-2 text-sm font-mono text-gray-400 hover:text-cyan-400 transition-colors">
-                    <Github size={16} /> GitHub
+                    <GitFork size={16} /> GitHub
                   </a>
                 )}
                 {project.demo && (
