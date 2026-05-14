@@ -845,6 +845,41 @@ textarea {
 
 /* ===== CYBERPUNK GLOBALS ===== */
 
+:root {
+  --cyan: #00E5FF;
+  --cyan-dim: #00B8D4;
+  --cyan-glow: rgba(0, 229, 255, 0.15);
+  --crimson: #B71C1C;
+  --dark: #000000;
+  --dark-gray: #0A0A0A;
+  --mid-gray: #111111;
+  --border-gray: #1A1A1A;
+}
+
+/* Scan line overlay applied globally */
+.scanlines::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Hide native cursor when custom cursor is active */
+.custom-cursor * {
+  cursor: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   background: #000;
