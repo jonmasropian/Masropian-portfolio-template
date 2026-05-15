@@ -22,9 +22,9 @@ export default function Projects() {
           animate={isVisible ? 'visible' : 'hidden'}
           className="mb-16"
         >
-          <span className="text-xs font-mono text-cyan-400 tracking-widest">04 // PROJECTS</span>
+          <span className="text-xs font-mono text-cyan-400 tracking-widest">04 // CLASSIFIED_OPERATIONS</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">
-            Deployed <span style={{ color: '#00E5FF' }}>Missions</span>
+            Deployed <span style={{ color: '#c084fc' }}>Missions</span>
           </h2>
           <p className="text-gray-500 font-mono text-sm mt-3">Click any card for full details</p>
         </motion.div>

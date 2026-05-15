@@ -20,10 +20,10 @@ export default function ProjectCard({ project, index, isVisible, onClick }: Prop
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
       transition={{ delay: index * 0.15 }}
-      whileHover={{ y: -4, borderColor: 'rgba(0,229,255,0.5)' }}
+      whileHover={{ y: -4, borderColor: 'rgba(123,47,255,0.5)' }}
       onClick={() => onClick(project)}
       className="p-6 cursor-pointer transition-all duration-300 group"
-      style={{ border: '1px solid rgba(0,229,255,0.15)', background: 'rgba(0,0,0,0.5)' }}
+      style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.6)' }}
     >
       <div className="flex items-start justify-between mb-4">
         <div>
@@ -38,8 +38,8 @@ export default function ProjectCard({ project, index, isVisible, onClick }: Prop
 
       <div className="flex flex-wrap gap-2">
         {project.stack.slice(0, 5).map((s) => (
-          <span key={s} className="text-xs font-mono text-gray-500 px-2 py-0.5"
-            style={{ border: '1px solid rgba(255,255,255,0.08)' }}>{s}</span>
+          <span key={s} className="text-xs font-mono px-2 py-0.5"
+            style={{ border: '1px solid rgba(123,47,255,0.15)', color: 'rgba(192,132,252,0.5)' }}>{s}</span>
         ))}
         {project.stack.length > 5 && (
           <span className="text-xs font-mono text-gray-600">+{project.stack.length - 5}</span>
