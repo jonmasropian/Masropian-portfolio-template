@@ -23,6 +23,9 @@ export default function Skills() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">
             Technical <span style={{ color: '#c084fc' }}>Arsenal</span>
           </h2>
+          <p className="text-xs font-mono mt-3 void-flicker" style={{ color: 'rgba(123,47,255,0.55)', letterSpacing: '0.12em' }}>
+            // click any badge once to unlock audio — then hover to hear the void //
+          </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">

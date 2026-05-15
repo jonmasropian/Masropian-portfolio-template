@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { scaleIn } from '@/lib/animations';
 import { corruptText } from '@/lib/corruption';
-import { playGlitch, playGrowl } from '@/lib/sounds';
+import { playGlitch, playMonster } from '@/lib/sounds';
 
 interface Props {
   skill: string;
@@ -24,10 +24,10 @@ export default function SkillBadge({ skill, variant = 'purple' }: Props) {
 
   const handleHoverStart = () => {
     corruptText(skill, 120, setDisplay, () => setDisplay(skill));
-    // Cyan (ops/security) badges: 40% chance of growl, otherwise glitch
-    // Purple (dev) badges: always glitch
-    if (!isPurple && Math.random() < 0.4) {
-      playGrowl();
+    // Cyan (ops/security): harsh digital stutter glitch
+    // Purple (dev): scary monster roar + low growl
+    if (isPurple) {
+      playMonster();
     } else {
       playGlitch();
     }
