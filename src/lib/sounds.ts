@@ -1,9 +1,13 @@
 let _ctx: AudioContext | null = null;
 
-function getCtx(): AudioContext | null {
+async function getCtx(): Promise<AudioContext | null> {
   if (typeof window === 'undefined') return null;
-  if (!_ctx) _ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
-  if (_ctx.state === 'suspended') _ctx.resume();
+  if (!_ctx) {
+    _ctx = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+  }
+  if (_ctx.state === 'suspended') {
+    await _ctx.resume();
+  }
   return _ctx;
 }
 
@@ -17,16 +21,17 @@ function makeDistortionCurve(amount: number): Float32Array {
   return curve;
 }
 
-export function playGlitch() {
-  const ctx = getCtx();
+export async function playGlitch() {
+  const ctx = await getCtx();
   if (!ctx) return;
 
   const t = ctx.currentTime;
-  const bufferSize = Math.floor(ctx.sampleRate * 0.055);
+  const duration = 0.07;
+  const bufferSize = Math.floor(ctx.sampleRate * duration);
   const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
   const data = buffer.getChannelData(0);
   for (let i = 0; i < bufferSize; i++) {
-    data[i] = (Math.random() * 2 - 1) * 0.3;
+    data[i] = (Math.random() * 2 - 1);
   }
 
   const source = ctx.createBufferSource();
@@ -34,12 +39,12 @@ export function playGlitch() {
 
   const filter = ctx.createBiquadFilter();
   filter.type = 'bandpass';
-  filter.frequency.value = 2800 + Math.random() * 1200;
-  filter.Q.value = 0.6;
+  filter.frequency.value = 2500 + Math.random() * 1500;
+  filter.Q.value = 0.8;
 
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.38, t);
-  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.055);
+  gain.gain.setValueAtTime(0.6, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
 
   source.connect(filter);
   filter.connect(gain);
@@ -47,27 +52,28 @@ export function playGlitch() {
   source.start(t);
 }
 
-export function playGrowl() {
-  const ctx = getCtx();
+export async function playGrowl() {
+  const ctx = await getCtx();
   if (!ctx) return;
 
   const t = ctx.currentTime;
+  const duration = 0.28;
 
   const osc = ctx.createOscillator();
   osc.type = 'sawtooth';
-  osc.frequency.setValueAtTime(95 + Math.random() * 20, t);
-  osc.frequency.exponentialRampToValueAtTime(48, t + 0.22);
+  osc.frequency.setValueAtTime(100 + Math.random() * 30, t);
+  osc.frequency.exponentialRampToValueAtTime(45, t + duration);
 
   const dist = ctx.createWaveShaper();
-  dist.curve = makeDistortionCurve(160);
+  dist.curve = makeDistortionCurve(200);
 
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.26, t);
-  gain.gain.exponentialRampToValueAtTime(0.001, t + 0.24);
+  gain.gain.setValueAtTime(0.5, t);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
 
   osc.connect(dist);
   dist.connect(gain);
   gain.connect(ctx.destination);
   osc.start(t);
-  osc.stop(t + 0.26);
+  osc.stop(t + duration + 0.01);
 }
