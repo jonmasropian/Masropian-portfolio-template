@@ -17,7 +17,7 @@ interface Props {
 export default function CertCard({ name, issuer, code, status, year, description, index, isVisible }: Props) {
   const isActive = status === 'Active' || status === 'Completed';
   const StatusIcon = isActive ? CheckCircle : Clock;
-  const statusColor = status === 'Active' ? '#00E5FF' : status === 'Completed' ? '#22C55E' : '#F59E0B';
+  const statusColor = status === 'Active' ? '#00e5ff' : status === 'Completed' ? '#00e5ff' : '#F59E0B';
 
   return (
     <motion.div
@@ -25,12 +25,12 @@ export default function CertCard({ name, issuer, code, status, year, description
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
       transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -4, borderColor: 'rgba(0,229,255,0.5)' }}
+      whileHover={{ y: -4, borderColor: 'rgba(123,47,255,0.5)' }}
       className="p-6 transition-all duration-300"
-      style={{ border: '1px solid rgba(0,229,255,0.15)', background: 'rgba(0,0,0,0.5)' }}
+      style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.5)' }}
     >
       <div className="flex items-start justify-between mb-4">
-        <Shield size={24} className="text-cyan-400" style={{ filter: 'drop-shadow(0 0 6px rgba(0,229,255,0.5))' }} />
+        <Shield size={24} style={{ color: '#c084fc', filter: 'drop-shadow(0 0 6px rgba(123,47,255,0.5))' }} />
         <div className="flex items-center gap-1.5" style={{ color: statusColor }}>
           <StatusIcon size={12} />
           <span className="text-xs font-mono tracking-widest">{status.toUpperCase()}</span>
@@ -38,9 +38,9 @@ export default function CertCard({ name, issuer, code, status, year, description
       </div>
 
       <h3 className="text-white font-semibold text-base mb-1">{name}</h3>
-      <div className="text-cyan-400 font-mono text-xs tracking-wider mb-1">{issuer}</div>
-      <div className="text-gray-600 font-mono text-xs mb-4">{code} // {year}</div>
-      <p className="text-gray-500 text-xs font-mono leading-relaxed">{description}</p>
+      <div className="font-mono text-xs tracking-wider mb-1" style={{ color: '#00e5ff' }}>{issuer}</div>
+      <div className="font-mono text-xs mb-4" style={{ color: 'rgba(123,47,255,0.6)' }}>{code} // {year}</div>
+      <p className="text-xs font-mono leading-relaxed" style={{ color: 'rgba(160,140,200,0.55)' }}>{description}</p>
     </motion.div>
   );
 }

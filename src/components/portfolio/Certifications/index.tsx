@@ -19,9 +19,9 @@ export default function Certifications() {
           animate={isVisible ? 'visible' : 'hidden'}
           className="mb-16"
         >
-          <span className="text-xs font-mono text-cyan-400 tracking-widest">06 // CERTIFICATIONS</span>
+          <span className="text-xs font-mono text-cyan-400 tracking-widest">05 // CLEARANCE_VERIFIED</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">
-            Credentials &amp; <span style={{ color: '#00E5FF' }}>Clearances</span>
+            Credentials &amp; <span style={{ color: '#c084fc' }}>Clearances</span>
           </h2>
         </motion.div>
 
