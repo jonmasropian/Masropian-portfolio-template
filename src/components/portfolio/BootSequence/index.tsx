@@ -39,7 +39,7 @@ interface Props { onComplete: () => void; }
 
 export default function BootSequence({ onComplete }: Props) {
   const [lines, setLines] = useState<{ text: string; type: string }[]>([]);
-  const [done, setDone]     = useState(false);
+  const [done, setDone]       = useState(false);
   const [ripping, setRipping] = useState(false);
 
   useEffect(() => {
@@ -50,15 +50,22 @@ export default function BootSequence({ onComplete }: Props) {
         i++;
       } else {
         clearInterval(interval);
-        // Short pause after last line, then trigger rip
-        setTimeout(() => {
+        // Pause → trigger rip → wait for animation → call onComplete
+        const t1 = setTimeout(() => {
           setDone(true);
-          setTimeout(() => setRipping(true), 350);
+          const t2 = setTimeout(() => {
+            setRipping(true);
+            // Animation is 550ms; call onComplete just after it finishes
+            const t3 = setTimeout(onComplete, 620);
+            return () => clearTimeout(t3);
+          }, 350);
+          return () => clearTimeout(t2);
         }, 500);
+        return () => clearTimeout(t1);
       }
     }, 220);
     return () => clearInterval(interval);
-  }, []);
+  }, [onComplete]);
 
   return (
     <>
@@ -139,7 +146,6 @@ export default function BootSequence({ onComplete }: Props) {
               animate={{ y: '-100%' }}
               transition={{ duration: 0.55, ease: [0.86, 0, 0.07, 1] }}
               style={{ background: '#000005', clipPath: TOP_CLIP }}
-              onAnimationComplete={onComplete}
             />
 
             {/* Bottom panel — tears downward */}
