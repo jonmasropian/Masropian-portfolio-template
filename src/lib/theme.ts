@@ -18,7 +18,7 @@ export const colors = {
   voidBlack:     '#000005',
   voidDeep:      '#0d0010',
   midGray:       '#111111',
-  borderGray:    '#1a0030',
+  borderVoid:    '#1a0030',
 
   // Text
   textPrimary:   '#ffffff',

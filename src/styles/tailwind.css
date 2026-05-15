@@ -853,7 +853,7 @@ textarea {
   --horror-red:   #ff4d6d;
   --void-black:   #000005;
   --void-deep:    #0d0010;
-  --border-gray:  #1a0030;
+  --border-void:  #1a0030;
 }
 
 /* Fixed void nebula background */
