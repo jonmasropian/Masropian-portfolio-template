@@ -45,7 +45,7 @@ export default function ContactForm() {
           value={form[key]}
           onChange={(e) => setForm({ ...form, [key]: e.target.value })}
           className="w-full bg-transparent text-white text-sm font-mono py-3 px-4 outline-none transition-colors placeholder-gray-700"
-          style={{ border: `1px solid ${errors[key] ? '#EF4444' : 'rgba(0,229,255,0.2)'}` }}
+          style={{ border: `1px solid ${errors[key] ? '#EF4444' : 'rgba(123,47,255,0.25)'}` }}
           placeholder={`Enter ${label.toLowerCase()}...`}
         />
       ) : (
@@ -54,7 +54,7 @@ export default function ContactForm() {
           value={form[key]}
           onChange={(e) => setForm({ ...form, [key]: e.target.value })}
           className="w-full bg-transparent text-white text-sm font-mono py-3 px-4 outline-none resize-none transition-colors placeholder-gray-700"
-          style={{ border: `1px solid ${errors[key] ? '#EF4444' : 'rgba(0,229,255,0.2)'}` }}
+          style={{ border: `1px solid ${errors[key] ? '#EF4444' : 'rgba(123,47,255,0.25)'}` }}
           placeholder={`Enter ${label.toLowerCase()}...`}
         />
       )}
@@ -76,7 +76,8 @@ export default function ContactForm() {
           <p className="text-gray-500 font-mono text-sm">I'll get back to you ASAP. Stand by.</p>
           <button
             onClick={() => setStatus('idle')}
-            className="mt-6 text-xs font-mono text-cyan-400 hover:underline"
+            className="mt-6 text-xs font-mono hover:underline"
+            style={{ color: '#c084fc' }}
           >
             Send another message
           </button>
@@ -98,17 +99,17 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="flex items-center gap-3 px-8 py-3 font-mono text-sm tracking-widest font-bold text-black disabled:opacity-50 transition-all duration-300 hover:scale-105"
-            style={{ background: '#00E5FF', boxShadow: '0 0 25px rgba(0,229,255,0.4)' }}
+            className="flex items-center gap-3 px-8 py-3 font-mono text-sm tracking-widest font-bold disabled:opacity-50 transition-all duration-300 hover:scale-105"
+            style={{ background: 'rgba(123,47,255,0.8)', color: '#e9d5ff', boxShadow: '0 0 25px rgba(123,47,255,0.3)', border: '1px solid rgba(123,47,255,0.6)' }}
           >
             {status === 'sending' ? (
               <>
                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                  className="w-4 h-4 border-2 border-black border-t-transparent rounded-full" />
+                  className="w-4 h-4 border-2 border-t-transparent rounded-full" style={{ borderColor: '#c084fc', borderTopColor: 'transparent' }} />
                 TRANSMITTING...
               </>
             ) : (
-              <><Send size={16} /> SEND MESSAGE</>
+              <><Send size={16} /> TRANSMIT</>
             )}
           </button>
         </motion.form>
