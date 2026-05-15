@@ -24,9 +24,8 @@ export default function CertCard({ name, issuer, code, status, year, description
       variants={scaleIn}
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
-      transition={{ delay: index * 0.1 }}
+      transition={{ delay: index * 0.1, type: 'spring', stiffness: 600, damping: 30 }}
       whileHover={{ y: -4, borderColor: 'rgba(123,47,255,0.6)', boxShadow: '0 0 18px rgba(123,47,255,0.18)' }}
-      transition={{ type: 'spring', stiffness: 600, damping: 30 }}
       className="p-6"
       style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.5)' }}
     >
