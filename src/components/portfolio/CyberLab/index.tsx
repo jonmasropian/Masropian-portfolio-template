@@ -21,9 +21,9 @@ export default function CyberLab() {
           animate={isVisible ? 'visible' : 'hidden'}
           className="mb-16"
         >
-          <span className="text-xs font-mono text-red-500 tracking-widest">05 // CYBER LAB</span>
+          <span className="text-xs font-mono text-red-500 tracking-widest">06 // VOID_INTERFACE</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">
-            Command <span style={{ color: '#00E5FF' }}>Center</span>
+            Command <span style={{ color: '#c084fc' }}>Center</span>
           </h2>
           <p className="text-gray-500 font-mono text-sm mt-3">
             Interactive terminal and live threat monitoring simulation

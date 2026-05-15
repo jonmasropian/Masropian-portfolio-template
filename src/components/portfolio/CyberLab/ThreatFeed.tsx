@@ -20,18 +20,18 @@ export default function ThreatFeed() {
   }, [idx]);
 
   const typeColor: Record<string, string> = {
-    INFO: '#00E5FF',
-    WARN: '#F59E0B',
-    ALERT: '#EF4444',
+    INFO:  '#00e5ff',
+    WARN:  '#c084fc',
+    ALERT: '#ff4d6d',
   };
 
   return (
     <div className="h-80 overflow-hidden font-mono text-xs"
-      style={{ background: '#050505', border: '1px solid rgba(0,229,255,0.2)', padding: '1rem' }}>
-      <div className="flex items-center gap-2 mb-4 pb-2" style={{ borderBottom: '1px solid rgba(0,229,255,0.1)' }}>
+      style={{ background: '#000005', border: '1px solid rgba(123,47,255,0.2)', padding: '1rem' }}>
+      <div className="flex items-center gap-2 mb-4 pb-2" style={{ borderBottom: '1px solid rgba(123,47,255,0.15)' }}>
         <motion.div animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1, repeat: Infinity }}
           className="w-2 h-2 rounded-full bg-red-500" />
-        <span className="text-gray-500 tracking-widest">LIVE THREAT MONITOR</span>
+        <span className="tracking-widest" style={{ color: 'rgba(192,132,252,0.5)' }}>LIVE THREAT MONITOR</span>
       </div>
 
       <div className="space-y-2">
