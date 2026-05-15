@@ -29,41 +29,30 @@ export default function Hero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <div className="relative w-52 h-52 md:w-64 md:h-64">
-              {/* Spinning electric border — blurred layer */}
-              <motion.div
-                className="absolute rounded-xl"
-                style={{
-                  inset: '-4px',
-                  background: 'conic-gradient(from 0deg, #7b2fff, #00e5ff, #c084fc, #7b2fff)',
-                  filter: 'blur(2px)',
-                  zIndex: 0,
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-              />
-              {/* Sharp border layer */}
-              <motion.div
-                className="absolute rounded-xl"
-                style={{
-                  inset: '-2px',
-                  background: 'conic-gradient(from 0deg, #7b2fff, #00e5ff, #c084fc, #7b2fff)',
-                  zIndex: 0,
-                }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-              />
-              {/* Image */}
-              <div className="relative w-full h-full rounded-xl overflow-hidden" style={{ zIndex: 1 }}>
-                <Image
-                  src="/portfolio-picture.png"
-                  alt="Jon Masropian"
-                  fill
-                  className="object-cover object-top"
-                  priority
+            {/* Outer wrapper — positions sparks without overflow issues */}
+            <div className="relative" style={{ width: 'fit-content' }}>
+              {/* Spinning border contained inside — no overflow bleed */}
+              <div
+                className="relative rounded-xl"
+                style={{ width: 208, height: 208, padding: '3px', overflow: 'hidden', boxShadow: '0 0 24px rgba(123,47,255,0.35)' }}
+              >
+                <motion.div
+                  className="absolute inset-0"
+                  style={{ background: 'conic-gradient(from 0deg, #7b2fff, #00e5ff, #c084fc, #7b2fff)' }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                 />
+                <div className="relative w-full h-full rounded-[10px] overflow-hidden" style={{ zIndex: 1 }}>
+                  <Image
+                    src="/portfolio-picture.png"
+                    alt="Jon Masropian"
+                    fill
+                    className="object-cover object-top"
+                    priority
+                  />
+                </div>
               </div>
-              {/* Corner sparks */}
+              {/* Corner sparks — outside the clipped container */}
               <motion.div className="absolute -top-1 -right-1 w-3 h-3 rounded-full" style={{ background: '#00e5ff', boxShadow: '0 0 8px #00e5ff, 0 0 16px rgba(0,229,255,0.6)', zIndex: 2 }}
                 animate={{ opacity: [1, 0.2, 1], scale: [1, 1.4, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }} />
