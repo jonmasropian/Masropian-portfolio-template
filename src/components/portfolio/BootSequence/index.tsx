@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { corruptText } from '@/lib/corruption';
 
@@ -42,30 +42,38 @@ export default function BootSequence({ onComplete }: Props) {
   const [done, setDone]       = useState(false);
   const [ripping, setRipping] = useState(false);
 
+  // Keep onComplete in a ref so the effect doesn't re-run when the parent re-renders
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => { onCompleteRef.current = onComplete; });
+
   useEffect(() => {
     let i = 0;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
     const interval = setInterval(() => {
       if (i < bootLines.length) {
         setLines((prev) => [...prev, bootLines[i]]);
         i++;
       } else {
         clearInterval(interval);
-        // Pause → trigger rip → wait for animation → call onComplete
         const t1 = setTimeout(() => {
           setDone(true);
           const t2 = setTimeout(() => {
             setRipping(true);
-            // Animation is 550ms; call onComplete just after it finishes
-            const t3 = setTimeout(onComplete, 620);
-            return () => clearTimeout(t3);
+            const t3 = setTimeout(() => onCompleteRef.current(), 620);
+            timers.push(t3);
           }, 350);
-          return () => clearTimeout(t2);
+          timers.push(t2);
         }, 500);
-        return () => clearTimeout(t1);
+        timers.push(t1);
       }
     }, 220);
-    return () => clearInterval(interval);
-  }, [onComplete]);
+
+    return () => {
+      clearInterval(interval);
+      timers.forEach(clearTimeout);
+    };
+  }, []); // empty — runs once only
 
   return (
     <>
