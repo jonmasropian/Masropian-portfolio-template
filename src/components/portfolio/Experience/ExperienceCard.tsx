@@ -22,13 +22,15 @@ export default function ExperienceCard({ role, company, period, highlights, inde
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
       transition={{ delay: index * 0.15 }}
-      className="overflow-hidden"
-      style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.5)' }}
+      whileHover={{ borderColor: 'rgba(123,47,255,0.6)', boxShadow: '0 0 18px rgba(123,47,255,0.18)' }}
+      style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.5)', overflow: 'hidden' }}
     >
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-6 text-left flex items-start justify-between gap-4 transition-colors"
-        style={{ background: expanded ? 'rgba(123,47,255,0.05)' : 'transparent' }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(123,47,255,0.07)')}
+        onMouseLeave={(e) => (e.currentTarget.style.background = expanded ? 'rgba(123,47,255,0.05)' : 'transparent')}
+        className="w-full p-6 text-left flex items-start justify-between gap-4"
+        style={{ background: expanded ? 'rgba(123,47,255,0.05)' : 'transparent', transition: 'background 0.08s' }}
       >
         <div>
           <div className="text-white font-semibold text-lg">{role}</div>
