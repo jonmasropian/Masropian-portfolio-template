@@ -78,14 +78,6 @@ export default function Hero() {
           >
             VIEW PROJECTS
           </a>
-          <a
-            href="#cyberlab"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#cyberlab')?.scrollIntoView({ behavior: 'smooth' }); }}
-            className="px-8 py-3 font-mono text-sm tracking-widest transition-all duration-300 hover:scale-105"
-            style={{ color: '#00e5ff', border: '1px solid rgba(0,229,255,0.4)', boxShadow: '0 0 15px rgba(0,229,255,0.08)' }}
-          >
-            ACCESS TERMINAL
-          </a>
         </motion.div>
 
         {/* Metric cards */}

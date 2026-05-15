@@ -3,7 +3,6 @@ import About from '@/components/portfolio/About';
 import Skills from '@/components/portfolio/Skills';
 import Experience from '@/components/portfolio/Experience';
 import Projects from '@/components/portfolio/Projects';
-import CyberLab from '@/components/portfolio/CyberLab';
 import Certifications from '@/components/portfolio/Certifications';
 import Contact from '@/components/portfolio/Contact';
 import { Metadata } from 'next';
@@ -26,7 +25,6 @@ export default function PortfolioPage() {
       <Skills />
       <Experience />
       <Projects />
-      <CyberLab />
       <Certifications />
       <Contact />
     </main>
