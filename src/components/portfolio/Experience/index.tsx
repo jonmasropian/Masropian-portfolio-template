@@ -18,9 +18,9 @@ export default function Experience() {
           animate={isVisible ? 'visible' : 'hidden'}
           className="mb-16"
         >
-          <span className="text-xs font-mono text-cyan-400 tracking-widest">03 // EXPERIENCE</span>
+          <span className="text-xs font-mono tracking-widest" style={{ color: '#00e5ff' }}>03 // MISSION_LOGS</span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mt-2">
-            Field <span style={{ color: '#00E5FF' }}>Record</span>
+            Field <span style={{ color: '#c084fc' }}>Record</span>
           </h2>
         </motion.div>
 
