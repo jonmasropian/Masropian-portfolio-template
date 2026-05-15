@@ -17,15 +17,16 @@ export default function MetricCards() {
           variants={scaleIn}
           className="p-4 text-center"
           style={{
-            background: 'rgba(0,229,255,0.05)',
-            border: '1px solid rgba(0,229,255,0.2)',
+            background: 'rgba(123,47,255,0.06)',
+            border: '1px solid rgba(123,47,255,0.25)',
+            boxShadow: '0 0 10px rgba(123,47,255,0.08)',
           }}
         >
-          <div className="text-2xl md:text-3xl font-bold font-mono" style={{ color: '#00E5FF' }}>
+          <div className="text-2xl md:text-3xl font-bold font-mono" style={{ color: '#00e5ff' }}>
             {metric.value}
             <span className="text-sm ml-0.5">{metric.suffix}</span>
           </div>
-          <div className="text-xs text-gray-500 mt-1 tracking-wider uppercase font-mono">
+          <div className="text-xs mt-1 tracking-wider uppercase font-mono" style={{ color: 'rgba(192,132,252,0.55)' }}>
             {metric.label}
           </div>
         </motion.div>
