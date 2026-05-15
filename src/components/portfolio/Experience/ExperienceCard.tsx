@@ -22,7 +22,14 @@ export default function ExperienceCard({ role, company, period, highlights, inde
       initial="hidden"
       animate={isVisible ? 'visible' : 'hidden'}
       transition={{ delay: index * 0.15 }}
-      whileHover={{ borderColor: 'rgba(123,47,255,0.6)', boxShadow: '0 0 18px rgba(123,47,255,0.18)' }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(123,47,255,0.6)';
+        e.currentTarget.style.boxShadow = '0 0 18px rgba(123,47,255,0.18)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(123,47,255,0.2)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
       style={{ border: '1px solid rgba(123,47,255,0.2)', background: 'rgba(13,0,16,0.5)', overflow: 'hidden' }}
     >
       <button
