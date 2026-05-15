@@ -39,7 +39,8 @@ export default function BootSequence({ onComplete }: Props) {
 
     const interval = setInterval(() => {
       if (i < bootLines.length) {
-        setLines((prev) => [...prev, bootLines[i]]);
+        const line = bootLines[i];
+        setLines((prev) => [...prev, line]);
         i++;
       } else {
         clearInterval(interval);
