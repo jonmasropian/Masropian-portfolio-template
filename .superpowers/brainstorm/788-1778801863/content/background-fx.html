@@ -1,0 +1,96 @@
+<h2>Background Animation Style</h2>
+<p class="subtitle">This runs behind every section. What fills the void?</p>
+
+<div class="cards">
+
+  <!-- Option A: Deep space particle field -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="height:190px;background:#000;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(80,0,140,0.45) 0%,transparent 55%),radial-gradient(ellipse at 75% 70%,rgba(40,0,80,0.35) 0%,transparent 50%);"></div>
+      <!-- Simulated stars/particles -->
+      <div style="position:absolute;width:1px;height:1px;background:#c084fc;top:10%;left:15%;box-shadow:0 0 3px #c084fc;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#fff;top:20%;left:40%;box-shadow:0 0 4px rgba(255,255,255,0.8);"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#8b5cf6;top:35%;left:70%;box-shadow:0 0 3px #8b5cf6;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#fff;top:55%;left:25%;box-shadow:0 0 3px #fff;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#c084fc;top:65%;left:85%;box-shadow:0 0 2px #c084fc;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#00e5ff;top:80%;left:50%;box-shadow:0 0 4px #00e5ff;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#fff;top:15%;left:90%;box-shadow:0 0 3px #fff;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#8b5cf6;top:45%;left:10%;box-shadow:0 0 2px #8b5cf6;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#fff;top:75%;left:65%;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#c084fc;top:90%;left:30%;box-shadow:0 0 4px #c084fc;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#00e5ff;top:5%;left:55%;box-shadow:0 0 3px #00e5ff;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#fff;top:50%;left:95%;"></div>
+      <!-- Drifting nebula wisps -->
+      <div style="position:absolute;top:20%;left:10%;width:200px;height:80px;background:radial-gradient(ellipse,rgba(120,0,200,0.12),transparent);border-radius:50%;"></div>
+      <div style="position:absolute;top:55%;left:50%;width:180px;height:60px;background:radial-gradient(ellipse,rgba(0,100,180,0.08),transparent);border-radius:50%;"></div>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.1) 3px,rgba(0,0,0,0.1) 4px);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:10px;left:12px;font-family:monospace;font-size:9px;color:rgba(192,132,252,0.5);">PARTICLES: 800 // DRIFT: SLOW</div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#c084fc;">A — Deep Space Particle Field</h3>
+      <p>800+ slowly drifting stars and dust particles. Purple nebula clouds that shift on scroll. Cyan anomaly clusters. Subtle — lets your content breathe. Performance-friendly.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Animated void tentacles / sigils -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="height:190px;background:#000;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(60,0,100,0.5) 0%,#000 70%);"></div>
+      <!-- Simulated eldritch geometry -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.35;" viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="200" cy="95" r="75" fill="none" stroke="#7b2fff" stroke-width="0.5" stroke-dasharray="4 6"/>
+        <!-- Inner sigil lines -->
+        <line x1="200" y1="20" x2="200" y2="170" stroke="#5b00c0" stroke-width="0.4" opacity="0.6"/>
+        <line x1="125" y1="95" x2="275" y2="95" stroke="#5b00c0" stroke-width="0.4" opacity="0.6"/>
+        <line x1="147" y1="42" x2="253" y2="148" stroke="#3b0070" stroke-width="0.4" opacity="0.5"/>
+        <line x1="253" y1="42" x2="147" y2="148" stroke="#3b0070" stroke-width="0.4" opacity="0.5"/>
+        <!-- Tentacle curves -->
+        <path d="M200,95 Q160,50 120,30 Q100,20 80,10" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.4"/>
+        <path d="M200,95 Q240,50 280,30 Q300,20 320,10" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.4"/>
+        <path d="M200,95 Q180,140 150,165 Q130,178 110,190" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.3"/>
+        <path d="M200,95 Q220,140 250,165 Q270,178 290,190" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.3"/>
+        <!-- Center glow point -->
+        <circle cx="200" cy="95" r="4" fill="#c084fc" opacity="0.8"/>
+        <circle cx="200" cy="95" r="12" fill="none" stroke="#8b5cf6" stroke-width="0.5" opacity="0.6"/>
+      </svg>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.15) 3px,rgba(0,0,0,0.15) 4px);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:10px;left:12px;font-family:monospace;font-size:9px;color:rgba(192,132,252,0.5);">SIGIL: ROTATING // PULSE: 4s</div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#8b5cf6;">B — Rotating Void Sigil</h3>
+      <p>A slow-rotating eldritch symbol behind everything. Tentacle-like SVG paths that breathe and pulse. The geometry reacts to scroll — the deeper you go, the more it reveals. Full cosmic horror centerpiece.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Both layered -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="height:190px;background:#000;position:relative;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 45%,rgba(70,0,120,0.45) 0%,#000 65%);"></div>
+      <!-- Stars -->
+      <div style="position:absolute;width:1px;height:1px;background:#c084fc;top:8%;left:12%;box-shadow:0 0 3px #c084fc;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#fff;top:18%;left:45%;box-shadow:0 0 4px rgba(255,255,255,0.8);"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#00e5ff;top:72%;left:80%;box-shadow:0 0 3px #00e5ff;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#fff;top:88%;left:22%;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#c084fc;top:42%;left:92%;box-shadow:0 0 2px #c084fc;"></div>
+      <!-- Sigil on top of stars -->
+      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.22;" viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="95" r="70" fill="none" stroke="#7b2fff" stroke-width="0.5" stroke-dasharray="3 7"/>
+        <line x1="200" y1="25" x2="200" y2="165" stroke="#5b00c0" stroke-width="0.4" opacity="0.7"/>
+        <line x1="130" y1="95" x2="270" y2="95" stroke="#5b00c0" stroke-width="0.4" opacity="0.7"/>
+        <path d="M200,95 Q155,48 115,25" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.5"/>
+        <path d="M200,95 Q245,48 285,25" fill="none" stroke="#6d28d9" stroke-width="1" opacity="0.5"/>
+        <circle cx="200" cy="95" r="3" fill="#c084fc" opacity="0.9"/>
+      </svg>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:10px;left:12px;font-family:monospace;font-size:9px;color:rgba(0,229,255,0.4);">LAYER_1: STARS // LAYER_2: SIGIL</div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#00e5ff;">C — Both Layered</h3>
+      <p>Stars and void particles as the deep background, sigil geometry floating in the midground. Full depth. The void feels infinite. Best visual impact — slightly heavier on GPU but worth it.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:1rem;font-size:0.8rem;">Open <strong>http://localhost:59474</strong> — click your pick</p>

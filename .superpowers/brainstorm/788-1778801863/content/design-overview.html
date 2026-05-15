@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosmic Void Horror — Design Overview</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #000005;
+    color: #e9d5ff;
+    font-family: 'Courier New', monospace;
+    padding: 2rem;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Scanlines */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.12) 3px, rgba(0,0,0,0.12) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* Fixed void background */
+  .void-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(90,0,160,0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(50,0,100,0.25) 0%, transparent 45%),
+      radial-gradient(ellipse at 60% 10%, rgba(0,80,120,0.12) 0%, transparent 40%),
+      #000005;
+  }
+
+  /* Simulated sigil in bg */
+  .void-sigil {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    opacity: 0.06;
+    z-index: 0;
+    animation: rotateSigil 60s linear infinite;
+  }
+  @keyframes rotateSigil {
+    from { transform: translate(-50%,-50%) rotate(0deg); }
+    to { transform: translate(-50%,-50%) rotate(360deg); }
+  }
+
+  /* Stars */
+  .star {
+    position: fixed;
+    border-radius: 50%;
+    z-index: 0;
+  }
+
+  .content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+  h1 {
+    font-size: 1.1rem;
+    color: #c084fc;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 0 20px rgba(192,132,252,0.6);
+  }
+  .page-subtitle {
+    font-size: 0.75rem;
+    color: rgba(0,229,255,0.5);
+    letter-spacing: 2px;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(123,47,255,0.2);
+    padding-bottom: 1rem;
+  }
+
+  .section-block {
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(123,47,255,0.25);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(80,0,140,0.1), inset 0 0 20px rgba(0,0,0,0.3);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: rgba(60,0,100,0.3);
+    border-bottom: 1px solid rgba(123,47,255,0.2);
+  }
+  .section-name {
+    font-size: 0.7rem;
+    color: #c084fc;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .section-tag {
+    font-size: 0.6rem;
+    color: rgba(0,229,255,0.6);
+    letter-spacing: 1px;
+  }
+
+  .section-body {
+    padding: 1rem;
+    background: rgba(0,0,5,0.6);
+  }
+
+  .mock-hero {
+    text-align: center;
+    padding: 1.5rem 1rem;
+  }
+  .mock-hero .glitch-name {
+    font-size: 1.8rem;
+    color: #c084fc;
+    text-shadow: 0 0 30px rgba(192,132,252,0.7), 0 0 60px rgba(123,47,255,0.3);
+    letter-spacing: 6px;
+    position: relative;
+    display: inline-block;
+  }
+  .mock-hero .glitch-name::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: -2px;
+    color: #00e5ff;
+    opacity: 0.4;
+    clip-path: inset(20% 0 60% 0);
+  }
+  .mock-hero .glitch-name::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 2px;
+    color: #7b2fff;
+    opacity: 0.4;
+    clip-path: inset(60% 0 10% 0);
+  }
+  .mock-hero .typing-line {
+    font-size: 0.75rem;
+    color: #00e5ff;
+    margin-top: 0.5rem;
+    letter-spacing: 2px;
+  }
+  .mock-hero .anomaly-tag {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.6rem;
+    color: rgba(192,132,252,0.5);
+    border: 1px solid rgba(123,47,255,0.3);
+    padding: 3px 10px;
+    letter-spacing: 3px;
+    animation: flicker 4s infinite;
+  }
+  @keyframes flicker {
+    0%,96%,98%,100% { opacity:1; }
+    97%,99% { opacity:0.2; }
+  }
+  .mock-metrics {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+  }
+  .mock-metric {
+    border: 1px solid rgba(123,47,255,0.35);
+    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+    color: #00e5ff;
+    background: rgba(60,0,100,0.2);
+    box-shadow: 0 0 10px rgba(0,229,255,0.1);
+  }
+
+  .mock-boot {
+    font-size: 0.65rem;
+    line-height: 1.8;
+    color: rgba(0,229,255,0.7);
+  }
+  .mock-boot .warn { color: #c084fc; }
+  .mock-boot .err { color: #ff4d6d; }
+
+  .mock-nav {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: rgba(192,132,252,0.7);
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .mock-nav .active { color: #00e5ff; text-shadow: 0 0 8px rgba(0,229,255,0.5); }
+  .mock-nav .logo { color: #c084fc; margin-right: auto; text-shadow: 0 0 10px rgba(192,132,252,0.5); }
+
+  .mock-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .mock-timeline-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .mock-node {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #7b2fff;
+    box-shadow: 0 0 8px rgba(123,47,255,0.8);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .mock-timeline-item p {
+    font-size: 0.65rem;
+    color: rgba(200,180,240,0.7);
+    line-height: 1.5;
+  }
+  .mock-timeline-item strong { color: #c084fc; }
+
+  .mock-skill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .mock-badge {
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    border: 1px solid rgba(123,47,255,0.4);
+    color: #c084fc;
+    letter-spacing: 1px;
+    background: rgba(60,0,100,0.2);
+  }
+  .mock-badge.cyan {
+    border-color: rgba(0,229,255,0.3);
+    color: #00e5ff;
+    background: rgba(0,50,80,0.2);
+  }
+
+  .mock-card-grid { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .mock-card {
+    flex: 1;
+    min-width: 140px;
+    border: 1px solid rgba(123,47,255,0.3);
+    padding: 0.6rem;
+    background: rgba(20,0,40,0.5);
+    font-size: 0.6rem;
+    line-height: 1.6;
+  }
+  .mock-card .card-title { color: #c084fc; letter-spacing: 2px; margin-bottom: 0.25rem; font-size: 0.65rem; }
+  .mock-card .card-tag { color: rgba(0,229,255,0.6); }
+  .mock-card .card-body { color: rgba(180,160,220,0.6); margin-top: 0.25rem; }
+
+  .mock-terminal {
+    background: rgba(0,0,5,0.9);
+    border: 1px solid rgba(0,229,255,0.2);
+    padding: 0.75rem;
+    font-size: 0.65rem;
+    line-height: 1.8;
+    color: rgba(0,229,255,0.8);
+  }
+  .mock-terminal .prompt { color: #7b2fff; }
+  .mock-terminal .output { color: rgba(200,180,255,0.6); }
+  .mock-terminal .cursor { animation: blink 1s infinite; }
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+  .mock-contact {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .mock-form { flex: 1; min-width: 160px; }
+  .mock-input-row {
+    height: 22px;
+    border: 1px solid rgba(123,47,255,0.3);
+    background: rgba(20,0,40,0.4);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 0.6rem;
+    color: rgba(192,132,252,0.4);
+  }
+  .mock-btn {
+    width: 100%;
+    padding: 0.3rem;
+    background: rgba(123,47,255,0.3);
+    border: 1px solid rgba(123,47,255,0.6);
+    color: #c084fc;
+    font-family: monospace;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(123,47,255,0.2);
+  }
+  .mock-contact-info { font-size: 0.6rem; color: rgba(0,229,255,0.5); line-height: 2; }
+
+  .anomaly-bar {
+    font-size: 0.6rem;
+    color: #ff4d6d;
+    border: 1px solid rgba(255,77,109,0.3);
+    padding: 0.3rem 0.75rem;
+    background: rgba(80,0,20,0.3);
+    letter-spacing: 2px;
+    margin-top: 0.75rem;
+    animation: flicker 6s infinite;
+  }
+
+  .horror-effects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .effect-chip {
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    background: rgba(40,0,60,0.5);
+    border: 1px solid rgba(123,47,255,0.25);
+    color: rgba(192,132,252,0.7);
+    letter-spacing: 1px;
+  }
+
+  .section-label {
+    font-size: 0.6rem;
+    color: rgba(0,229,255,0.4);
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed void background -->
+<div class="void-bg"></div>
+
+<!-- Sparse stars -->
+<div class="star" style="width:1px;height:1px;background:#fff;top:5%;left:12%;box-shadow:0 0 3px #fff;"></div>
+<div class="star" style="width:2px;height:2px;background:#c084fc;top:15%;left:45%;box-shadow:0 0 5px #c084fc;"></div>
+<div class="star" style="width:1px;height:1px;background:#fff;top:28%;left:78%;"></div>
+<div class="star" style="width:1px;height:1px;background:#00e5ff;top:42%;left:22%;box-shadow:0 0 4px #00e5ff;"></div>
+<div class="star" style="width:2px;height:2px;background:#fff;top:60%;left:88%;box-shadow:0 0 3px rgba(255,255,255,0.6);"></div>
+<div class="star" style="width:1px;height:1px;background:#8b5cf6;top:72%;left:55%;box-shadow:0 0 3px #8b5cf6;"></div>
+<div class="star" style="width:1px;height:1px;background:#fff;top:85%;left:30%;"></div>
+<div class="star" style="width:2px;height:2px;background:#c084fc;top:92%;left:70%;box-shadow:0 0 4px #c084fc;"></div>
+
+<!-- Rotating sigil -->
+<svg class="void-sigil" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="200" cy="200" r="180" fill="none" stroke="#7b2fff" stroke-width="0.8" stroke-dasharray="6 10"/>
+  <circle cx="200" cy="200" r="120" fill="none" stroke="#6d28d9" stroke-width="0.5" stroke-dasharray="3 8"/>
+  <line x1="200" y1="20" x2="200" y2="380" stroke="#5b00c0" stroke-width="0.5"/>
+  <line x1="20" y1="200" x2="380" y2="200" stroke="#5b00c0" stroke-width="0.5"/>
+  <line x1="73" y1="73" x2="327" y2="327" stroke="#3b0070" stroke-width="0.4"/>
+  <line x1="327" y1="73" x2="73" y2="327" stroke="#3b0070" stroke-width="0.4"/>
+  <path d="M200,200 Q140,100 80,40" fill="none" stroke="#7b2fff" stroke-width="1" opacity="0.7"/>
+  <path d="M200,200 Q260,100 320,40" fill="none" stroke="#7b2fff" stroke-width="1" opacity="0.7"/>
+  <path d="M200,200 Q100,240 40,320" fill="none" stroke="#7b2fff" stroke-width="1" opacity="0.5"/>
+  <path d="M200,200 Q300,240 360,320" fill="none" stroke="#7b2fff" stroke-width="1" opacity="0.5"/>
+  <path d="M200,200 Q80,180 20,200" fill="none" stroke="#5b00c0" stroke-width="0.8" opacity="0.6"/>
+  <path d="M200,200 Q320,180 380,200" fill="none" stroke="#5b00c0" stroke-width="0.8" opacity="0.6"/>
+  <circle cx="200" cy="200" r="6" fill="#c084fc" opacity="0.9"/>
+  <circle cx="200" cy="200" r="20" fill="none" stroke="#8b5cf6" stroke-width="0.5"/>
+</svg>
+
+<div class="content">
+  <h1>&#9670; COSMIC VOID HORROR — DESIGN PREVIEW &#9670;</h1>
+  <div class="page-subtitle">// FULL SITE REDESIGN MOCKUP // APPROVE EACH SECTION BEFORE IMPLEMENTATION BEGINS</div>
+
+  <!-- BOOT SEQUENCE -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; BOOT SEQUENCE</span>
+      <span class="section-tag">FIRST IMPRESSION // ENTRY POINT</span>
+    </div>
+    <div class="section-body">
+      <div class="mock-boot">
+        <div>> INITIALIZING VOID_OS v2.077...</div>
+        <div class="warn">> WARNING: ANOMALOUS SIGNAL DETECTED IN SECTOR 7</div>
+        <div>> LOADING OPERATOR PROFILE... <span style="color:#c084fc">JON MASROPIAN</span></div>
+        <div class="err">> [ERR_0xDEAD] REALITY ANCHOR UNSTABLE — PROCEEDING ANYWAY</div>
+        <div>> CLEARANCE VERIFIED: <span style="color:#00e5ff">SECRET // ACTIVE</span></div>
+        <div class="warn">> SOMETHING IS WATCHING. ENTERING PORTFOLIO...</div>
+      </div>
+      <div class="horror-effects">
+        <span class="effect-chip">&#9670; glitch flicker on each line</span>
+        <span class="effect-chip">&#9670; purple tinted terminal</span>
+        <span class="effect-chip">&#9670; anomaly warning injected mid-boot</span>
+        <span class="effect-chip">&#9670; random char corruption on error lines</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; NAVIGATION</span>
+      <span class="section-tag">FIXED // PERSISTENT</span>
+    </div>
+    <div class="section-body">
+      <div class="mock-nav">
+        <span class="logo">&#9670; MASROPIAN.SYS</span>
+        <span class="active">ABOUT</span>
+        <span>SKILLS</span>
+        <span>PROJECTS</span>
+        <span>EXPERIENCE</span>
+        <span>CONTACT</span>
+      </div>
+      <div class="horror-effects" style="margin-top:0.75rem;">
+        <span class="effect-chip">&#9670; purple neon border glow</span>
+        <span class="effect-chip">&#9670; active link in cyan</span>
+        <span class="effect-chip">&#9670; glitch on hover</span>
+        <span class="effect-chip">&#9670; logo pulses like a dying signal</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; HERO SECTION</span>
+      <span class="section-tag">ABOVE THE FOLD // FULL VIEWPORT</span>
+    </div>
+    <div class="section-body">
+      <div class="mock-hero">
+        <div class="section-label">// SIGNAL RECOVERED FROM THE VOID //</div>
+        <div class="glitch-name" data-text="JON MASROPIAN">JON MASROPIAN</div>
+        <div class="typing-line">> Full Stack Developer & Cybersecurity Specialist_</div>
+        <div class="anomaly-tag">&#9670; ARMY VETERAN // 22 YRS // SECRET CLEARANCE &#9670;</div>
+        <div class="mock-metrics">
+          <div class="mock-metric">22 YRS SERVICE</div>
+          <div class="mock-metric">ACTIVE CLEARANCE</div>
+          <div class="mock-metric">FULL STACK</div>
+          <div class="mock-metric">IT / NET OPS</div>
+        </div>
+      </div>
+      <div class="horror-effects">
+        <span class="effect-chip">&#9670; name has purple glitch effect</span>
+        <span class="effect-chip">&#9670; typing effect stays cyan</span>
+        <span class="effect-chip">&#9670; metric cards flicker on load</span>
+        <span class="effect-chip">&#9670; occasional char corruption on subtitle</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; ABOUT / MILITARY TIMELINE</span>
+      <span class="section-tag">OPERATIVE PROFILE // RECOVERED DATA</span>
+    </div>
+    <div class="section-body">
+      <div class="section-label">// OPERATIVE_FILE: MASROPIAN_J // CLEARANCE REQ'D //</div>
+      <div class="mock-timeline">
+        <div class="mock-timeline-item">
+          <div class="mock-node"></div>
+          <p><strong>2002 — ENLISTMENT LOGGED</strong><br>Signal enters the record. Army service begins.</p>
+        </div>
+        <div class="mock-timeline-item">
+          <div class="mock-node" style="background:#00e5ff;box-shadow:0 0 8px rgba(0,229,255,0.8);"></div>
+          <p><strong>20XX — IT / NET OPS</strong><br>Data routed through hostile territory. All packets accounted for.</p>
+        </div>
+        <div class="mock-timeline-item">
+          <div class="mock-node"></div>
+          <p><strong>2024 — TRANSITION TO VOID</strong><br>Full Stack Dev. Portfolio recovered from static noise.</p>
+        </div>
+      </div>
+      <div class="anomaly-bar">&#9650; ANOMALY: 22 years of encrypted service records detected</div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; SKILLS</span>
+      <span class="section-tag">CAPABILITY MATRIX // RECOVERED</span>
+    </div>
+    <div class="section-body">
+      <div class="section-label">// SCANNING OPERATOR CAPABILITIES //</div>
+      <div class="mock-skill-grid">
+        <span class="mock-badge">REACT</span>
+        <span class="mock-badge">NEXT.JS</span>
+        <span class="mock-badge cyan">NODE.JS</span>
+        <span class="mock-badge cyan">TYPESCRIPT</span>
+        <span class="mock-badge">PYTHON</span>
+        <span class="mock-badge">SQL</span>
+        <span class="mock-badge cyan">NETWORKING</span>
+        <span class="mock-badge">CYBERSECURITY</span>
+        <span class="mock-badge">LINUX</span>
+        <span class="mock-badge cyan">ACTIVE DIRECTORY</span>
+      </div>
+      <div class="horror-effects">
+        <span class="effect-chip">&#9670; purple = general dev skills</span>
+        <span class="effect-chip">&#9670; cyan = ops/security skills</span>
+        <span class="effect-chip">&#9670; hover triggers brief char corruption</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; PROJECTS</span>
+      <span class="section-tag">CLASSIFIED OPERATIONS // PARTIAL DECRYPT</span>
+    </div>
+    <div class="section-body">
+      <div class="section-label">// WARNING: SOME RECORDS STILL ENCRYPTED //</div>
+      <div class="mock-card-grid">
+        <div class="mock-card">
+          <div class="card-title">PROJECT_ALPHA</div>
+          <div class="card-tag">[REACT // NODE // POSTGRES]</div>
+          <div class="card-body">Partial data recovered. Click to decrypt full record...</div>
+        </div>
+        <div class="mock-card">
+          <div class="card-title">PROJECT_BETA</div>
+          <div class="card-tag">[NEXT.JS // TYPESCRIPT]</div>
+          <div class="card-body">Signal fragmentary. Reconstruction in progress...</div>
+        </div>
+        <div class="mock-card">
+          <div class="card-title">PROJECT_GAMMA</div>
+          <div class="card-tag">[PYTHON // SECURITY]</div>
+          <div class="card-body">Access restricted. Authorization required...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CYBER LAB -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; CYBER LAB / TERMINAL</span>
+      <span class="section-tag">LIVE INTERFACE // DANGER</span>
+    </div>
+    <div class="section-body">
+      <div class="mock-terminal">
+        <div><span class="prompt">VOID://&#62;</span> whoami</div>
+        <div class="output">masropian // clearance:secret // status:active</div>
+        <div><span class="prompt">VOID://&#62;</span> scan --threats</div>
+        <div class="output" style="color:#ff4d6d;">&#9650; ANOMALY DETECTED IN SECTOR 7 — SIGNAL ORIGIN UNKNOWN</div>
+        <div><span class="prompt">VOID://&#62;</span> <span class="cursor">&#9646;</span></div>
+      </div>
+      <div class="horror-effects" style="margin-top:0.75rem;">
+        <span class="effect-chip">&#9670; prompt changes from $ to VOID://&#62;</span>
+        <span class="effect-chip">&#9670; threat feed shows purple anomaly alerts</span>
+        <span class="effect-chip">&#9670; terminal border pulses cyan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-block">
+    <div class="section-header">
+      <span class="section-name">&#9632; CONTACT</span>
+      <span class="section-tag">TRANSMIT INTO THE VOID</span>
+    </div>
+    <div class="section-body">
+      <div class="section-label">// YOUR SIGNAL WILL BE RECEIVED //</div>
+      <div class="mock-contact">
+        <div class="mock-form">
+          <div class="mock-input-row">DESIGNATION //</div>
+          <div class="mock-input-row">FREQUENCY (EMAIL) //</div>
+          <div class="mock-input-row" style="height:50px;align-items:flex-start;padding-top:6px;">MESSAGE TO THE VOID //</div>
+          <div class="mock-btn">&#9670; TRANSMIT &#9670;</div>
+        </div>
+        <div class="mock-contact-info">
+          <div>> jon.masropian@gmail.com</div>
+          <div>> Lawton, OK</div>
+          <div>> GitHub // LinkedIn</div>
+          <div style="color:#c084fc;margin-top:0.5rem;">&#9670; SIGNAL MONITORED 24/7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:2rem;padding:1rem;border:1px solid rgba(123,47,255,0.2);font-size:0.65rem;color:rgba(192,132,252,0.5);line-height:2;">
+    <div style="color:#c084fc;margin-bottom:0.5rem;">&#9670; GLOBAL HORROR EFFECTS (APPLIED SITE-WIDE)</div>
+    <div>> Fixed void background: sparse stars + slow-rotating sigil (lightweight canvas)</div>
+    <div>> CRT scanlines: kept + slightly intensified</div>
+    <div>> Random "anomaly event" every ~45s: a glitched warning briefly overlays the screen</div>
+    <div>> Scrollbar: purple (#7b2fff) replacing current cyan</div>
+    <div>> All borders: purple glow instead of cyan glow (cyan reserved for data/interactive)</div>
+    <div>> Custom cursor: unchanged but glow color shifts to purple</div>
+  </div>
+</div>
+
+</body>
+</html>

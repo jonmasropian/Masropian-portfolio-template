@@ -1,0 +1,99 @@
+<h2>Which aesthetic direction speaks to you?</h2>
+<p class="subtitle">Three ways to fuse cyberpunk + space + horror into your portfolio</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: #000;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid #1a0a2e;
+    ">
+      <!-- Deep space starfield -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(80,0,120,0.4) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(0,20,80,0.5) 0%, transparent 50%);"></div>
+      <!-- Stars -->
+      <div style="position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;top:15%;left:20%;box-shadow:0 0 4px #fff;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#aaf;top:40%;left:60%;box-shadow:0 0 3px #aaf;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#ffa;top:70%;left:35%;box-shadow:0 0 4px #ffa;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#fff;top:25%;left:80%;"></div>
+      <div style="position:absolute;width:2px;height:2px;background:#faf;top:55%;left:15%;box-shadow:0 0 3px #faf;"></div>
+      <div style="position:absolute;width:1px;height:1px;background:#fff;top:85%;left:90%;"></div>
+      <!-- Tentacle/eldritch sigil suggestion -->
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;height:80px;background:radial-gradient(ellipse at center, rgba(100,0,180,0.6) 0%, transparent 70%);border-radius:50% 50% 0 0;"></div>
+      <!-- Scanlines -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.15) 3px,rgba(0,0,0,0.15) 4px);pointer-events:none;"></div>
+      <!-- Label -->
+      <div style="position:absolute;top:12px;left:12px;font-family:monospace;font-size:10px;color:#9b59b6;letter-spacing:2px;text-transform:uppercase;">VOID PROTOCOL</div>
+      <div style="position:absolute;bottom:12px;right:12px;font-family:monospace;font-size:11px;color:#6c2b9e;">&#9670; SIGNAL LOST</div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#9b59b6;">A — Cosmic Void Horror</h3>
+      <p>Deep space meets Lovecraftian dread. Purple/violet nebula glows, eldritch geometry, corrupted star maps. Think <em>Event Horizon</em> + <em>Dead Space</em>. Your terminal becomes a distress signal from the abyss.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: #000;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    ">
+      <!-- Rain effect suggestion -->
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,#0a0a0a 0%,#000 100%);"></div>
+      <!-- Red neon reflections -->
+      <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#ff0033,transparent);box-shadow:0 0 20px #ff0033,0 0 60px rgba(255,0,51,0.3);"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,0,51,0.4),transparent);"></div>
+      <!-- Flickering vertical neon bars -->
+      <div style="position:absolute;top:0;bottom:0;left:25%;width:1px;background:rgba(255,0,51,0.2);box-shadow:0 0 8px rgba(255,0,51,0.4);"></div>
+      <div style="position:absolute;top:0;bottom:0;left:75%;width:1px;background:rgba(0,229,255,0.15);box-shadow:0 0 8px rgba(0,229,255,0.3);"></div>
+      <!-- Warning symbol -->
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:40px;color:rgba(255,0,51,0.7);text-shadow:0 0 20px #ff0033,0 0 40px rgba(255,0,51,0.4);">&#9888;</div>
+      <!-- Glitch bar -->
+      <div style="position:absolute;top:35%;left:0;right:0;height:8px;background:linear-gradient(90deg,transparent 20%,rgba(255,0,51,0.3) 40%,rgba(0,229,255,0.2) 60%,transparent 80%);"></div>
+      <!-- Terminal text suggestion -->
+      <div style="position:absolute;bottom:16px;left:16px;font-family:monospace;font-size:10px;color:#ff0033;letter-spacing:1px;">SYSTEM FAILURE // RUN</div>
+      <div style="position:absolute;top:12px;right:12px;font-family:monospace;font-size:10px;color:rgba(255,0,51,0.6);">ERR_0xDEAD</div>
+      <!-- Scanlines -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.2) 3px,rgba(0,0,0,0.2) 4px);pointer-events:none;"></div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#ff0033;">B — Neon Nightmare</h3>
+      <p>Blade Runner's rain-soaked streets gone wrong. Blood-red neons replace cyan, flickering lights, corrupted UI, distress signals everywhere. Think <em>Cyberpunk 2077</em> + <em>Alien</em>. Maximum dread, maximum style.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="
+      background: #000005;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    ">
+      <!-- Space nebula with bio-horror tint -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%, rgba(0,80,60,0.5) 0%, transparent 50%),radial-gradient(ellipse at 80% 30%, rgba(0,229,255,0.15) 0%, transparent 40%),radial-gradient(ellipse at 60% 80%, rgba(0,50,20,0.4) 0%, transparent 40%);"></div>
+      <!-- Grid lines -->
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.05) 1px,transparent 1px);background-size:40px 40px;"></div>
+      <!-- Organic pulse suggestion -->
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100px;height:100px;border-radius:50%;border:1px solid rgba(0,180,80,0.4);box-shadow:0 0 20px rgba(0,180,80,0.2),inset 0 0 20px rgba(0,180,80,0.1);"></div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,255,0.3),transparent);box-shadow:0 0 30px rgba(0,229,255,0.4);"></div>
+      <!-- Bio readout -->
+      <div style="position:absolute;bottom:12px;left:12px;font-family:monospace;font-size:9px;color:rgba(0,229,255,0.7);letter-spacing:1px;">BIO_SCAN: ANOMALY</div>
+      <div style="position:absolute;top:12px;right:12px;font-family:monospace;font-size:9px;color:rgba(0,200,80,0.7);">&#9679; LIFE_SIG: UNKNOWN</div>
+      <!-- Scanlines -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px);pointer-events:none;"></div>
+    </div>
+    <div class="card-body">
+      <h3 style="color:#00e5a0;">C — Bio-Cosmic Dread</h3>
+      <p>Something alive in the signal. Cyan + toxic green + deep void. Alien organism patterns overlaid on circuit grids. Think <em>System Shock</em> + <em>The Thing</em>. Your portfolio as a recovered alien artifact.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:1rem;font-size:0.8rem;">Click to select — or pick more than one if you want a blend</p>

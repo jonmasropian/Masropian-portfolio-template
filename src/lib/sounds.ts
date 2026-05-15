@@ -18,9 +18,9 @@ export function unlockAudio() {
   if (ctx.state === 'suspended') ctx.resume();
 }
 
-function makeDistortionCurve(amount: number): Float32Array {
+function makeDistortionCurve(amount: number): Float32Array<ArrayBuffer> {
   const n = 256;
-  const curve = new Float32Array(n);
+  const curve = new Float32Array(n) as Float32Array<ArrayBuffer>;
   for (let i = 0; i < n; i++) {
     const x = (i * 2) / n - 1;
     curve[i] = ((Math.PI + amount) * x) / (Math.PI + amount * Math.abs(x));
@@ -28,9 +28,9 @@ function makeDistortionCurve(amount: number): Float32Array {
   return curve;
 }
 
-function makeHardClipCurve(threshold: number): Float32Array {
+function makeHardClipCurve(threshold: number): Float32Array<ArrayBuffer> {
   const n = 256;
-  const curve = new Float32Array(n);
+  const curve = new Float32Array(n) as Float32Array<ArrayBuffer>;
   for (let i = 0; i < n; i++) {
     const x = (i * 2) / n - 1;
     curve[i] = Math.max(-threshold, Math.min(threshold, x * (1 / threshold)));
