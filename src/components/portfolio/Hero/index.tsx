@@ -47,6 +47,7 @@ export default function Hero() {
                     src="/portfolio-picture.png"
                     alt="Jon Masropian"
                     fill
+                    sizes="(max-width: 768px) 208px, 208px"
                     className="object-cover object-top"
                     priority
                   />
@@ -193,6 +194,7 @@ export default function Hero() {
                   src="/Code_Generated_Image.png"
                   alt="JM Logo"
                   fill
+                  sizes="192px"
                   className="object-cover"
                   priority
                 />
