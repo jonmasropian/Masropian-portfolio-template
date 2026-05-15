@@ -71,49 +71,64 @@ export function playGlitch() {
   }
 }
 
-// Two-oscillator monster roar + low growl — for purple (dev) badges
+// Metal scratch — for purple (dev) badges
 export function playMonster() {
   const ctx = getCtx();
   if (!ctx || ctx.state !== 'running') return;
 
   const t = ctx.currentTime;
-  const dur = 0.42;
+  const dur = 0.2;
 
-  // Low growl — drops from ~120Hz to ~35Hz
-  const growl = ctx.createOscillator();
-  growl.type = 'sawtooth';
-  growl.frequency.setValueAtTime(120 + Math.random() * 20, t);
-  growl.frequency.exponentialRampToValueAtTime(35, t + dur);
+  // Noise buffer with grainy amplitude variation to simulate rough surface drag
+  const bufferSize = Math.floor(ctx.sampleRate * dur);
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    const grain = Math.abs(Math.sin(i * 0.04 + Math.random() * 0.8)) * 0.6 + 0.4;
+    data[i] = (Math.random() * 2 - 1) * grain;
+  }
 
-  const growlGain = ctx.createGain();
-  growlGain.gain.setValueAtTime(0.7, t);
-  growlGain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+  const source = ctx.createBufferSource();
+  source.buffer = buffer;
 
-  // Upper roar — starts higher and crashes down for the "creature vocal" quality
-  const roar = ctx.createOscillator();
-  roar.type = 'sawtooth';
-  roar.frequency.setValueAtTime(260 + Math.random() * 40, t);
-  roar.frequency.exponentialRampToValueAtTime(55, t + dur * 0.65);
-  roar.frequency.exponentialRampToValueAtTime(38, t + dur);
+  // Bandpass sweeps like dragging across metal surface
+  const bp = ctx.createBiquadFilter();
+  bp.type = 'bandpass';
+  bp.Q.value = 4;
+  bp.frequency.setValueAtTime(3000 + Math.random() * 1000, t);
+  bp.frequency.linearRampToValueAtTime(8000 + Math.random() * 2000, t + dur * 0.5);
+  bp.frequency.linearRampToValueAtTime(4500 + Math.random() * 1000, t + dur);
 
-  const roarGain = ctx.createGain();
-  roarGain.gain.setValueAtTime(0.55, t);
-  roarGain.gain.exponentialRampToValueAtTime(0.001, t + dur * 0.7);
+  // High peaking for metallic bite
+  const peak = ctx.createBiquadFilter();
+  peak.type = 'peaking';
+  peak.frequency.value = 9000 + Math.random() * 2000;
+  peak.gain.value = 10;
+  peak.Q.value = 2;
 
-  // Shared heavy distortion
-  const dist = ctx.createWaveShaper();
-  dist.curve = makeDistortionCurve(320);
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0, t);
+  gain.gain.linearRampToValueAtTime(0.7, t + 0.012);
+  gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
 
-  const master = ctx.createGain();
-  master.gain.value = 0.65;
+  source.connect(bp);
+  bp.connect(peak);
+  peak.connect(gain);
+  gain.connect(ctx.destination);
+  source.start(t);
 
-  growl.connect(growlGain);
-  roar.connect(roarGain);
-  growlGain.connect(dist);
-  roarGain.connect(dist);
-  dist.connect(master);
-  master.connect(ctx.destination);
+  // Brief metallic ring — the resonance of the metal after scratch
+  const ring = ctx.createOscillator();
+  ring.type = 'sine';
+  ring.frequency.setValueAtTime(7000 + Math.random() * 3000, t);
+  ring.frequency.exponentialRampToValueAtTime(2500, t + 0.12);
 
-  growl.start(t); growl.stop(t + dur + 0.02);
-  roar.start(t);  roar.stop(t + dur + 0.02);
+  const ringGain = ctx.createGain();
+  ringGain.gain.setValueAtTime(0.22, t);
+  ringGain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+
+  ring.connect(ringGain);
+  ringGain.connect(ctx.destination);
+  ring.start(t);
+  ring.stop(t + 0.15);
 }
