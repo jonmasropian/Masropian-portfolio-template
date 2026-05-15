@@ -2,6 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { scrollToSection } from '@/lib/scroll';
 
 const navLinks = [
   { label: 'ABOUT',          href: '#about' },
@@ -24,7 +25,8 @@ export default function Navigation() {
 
   const handleNav = (href: string) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    // Delay lets the mobile menu close animation finish before scrolling
+    setTimeout(() => scrollToSection(href), 350);
   };
 
   return (

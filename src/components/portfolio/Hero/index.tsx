@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { personal } from '@/data/portfolio';
 import { fadeUp } from '@/lib/animations';
+import { scrollToSection } from '@/lib/scroll';
 import TypingEffect from './TypingEffect';
 import MetricCards from './MetricCards';
 
@@ -121,7 +122,7 @@ export default function Hero() {
             >
               <a
                 href="#projects"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
+                onClick={(e) => { e.preventDefault(); scrollToSection('#projects'); }}
                 className="px-7 py-3 font-mono text-sm tracking-widest font-bold transition-all duration-300 hover:scale-105"
                 style={{ background: 'rgba(123,47,255,0.8)', color: '#e9d5ff', boxShadow: '0 0 30px rgba(123,47,255,0.4)' }}
               >
@@ -129,7 +130,7 @@ export default function Hero() {
               </a>
               <a
                 href="#contact"
-                onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
+                onClick={(e) => { e.preventDefault(); scrollToSection('#contact'); }}
                 className="px-7 py-3 font-mono text-sm tracking-widest transition-all duration-300 hover:scale-105"
                 style={{ color: '#00e5ff', border: '1px solid rgba(0,229,255,0.4)', boxShadow: '0 0 15px rgba(0,229,255,0.08)' }}
               >
