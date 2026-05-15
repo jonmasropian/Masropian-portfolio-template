@@ -19,18 +19,18 @@ export default function Hero() {
 
       <div className="relative max-w-6xl mx-auto px-6 pt-24 w-full" style={{ zIndex: 1 }}>
 
-        {/* Two-column layout: photo left, text right */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-16">
+        {/* Three-column layout: photo | text | logo */}
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-8">
 
-          {/* === PHOTO === */}
+          {/* === PHOTO (left) === */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <div className="relative w-56 h-56 md:w-72 md:h-72">
-              {/* Spinning electric border */}
+            <div className="relative w-52 h-52 md:w-64 md:h-64">
+              {/* Spinning electric border — blurred layer */}
               <motion.div
                 className="absolute rounded-xl"
                 style={{
@@ -42,7 +42,7 @@ export default function Hero() {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
               />
-              {/* Sharp border on top for crispness */}
+              {/* Sharp border layer */}
               <motion.div
                 className="absolute rounded-xl"
                 style={{
@@ -63,28 +63,16 @@ export default function Hero() {
                   priority
                 />
               </div>
-              {/* Corner spark accents */}
-              <motion.div
-                className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
-                style={{ background: '#00e5ff', boxShadow: '0 0 8px #00e5ff, 0 0 16px rgba(0,229,255,0.6)', zIndex: 2 }}
+              {/* Corner sparks */}
+              <motion.div className="absolute -top-1 -right-1 w-3 h-3 rounded-full" style={{ background: '#00e5ff', boxShadow: '0 0 8px #00e5ff, 0 0 16px rgba(0,229,255,0.6)', zIndex: 2 }}
                 animate={{ opacity: [1, 0.2, 1], scale: [1, 1.4, 1] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              <motion.div
-                className="absolute -bottom-1 -left-1 w-2 h-2 rounded-full"
-                style={{ background: '#c084fc', boxShadow: '0 0 8px #c084fc, 0 0 16px rgba(192,132,252,0.6)', zIndex: 2 }}
+                transition={{ duration: 1.5, repeat: Infinity }} />
+              <motion.div className="absolute -bottom-1 -left-1 w-2 h-2 rounded-full" style={{ background: '#c084fc', boxShadow: '0 0 8px #c084fc', zIndex: 2 }}
                 animate={{ opacity: [0.3, 1, 0.3], scale: [1, 1.5, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 0.7 }}
-              />
+                transition={{ duration: 2, repeat: Infinity, delay: 0.7 }} />
             </div>
 
-            {/* Status tag below photo */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9 }}
-              className="mt-4 text-center"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }} className="mt-3 text-center">
               <span className="text-xs font-mono tracking-widest void-flicker"
                 style={{ color: '#00e5ff', border: '1px solid rgba(0,229,255,0.2)', padding: '2px 10px' }}>
                 ● SIGNAL ACTIVE
@@ -92,9 +80,8 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* === TEXT CONTENT === */}
-          <div className="flex-1 text-center lg:text-left">
-            {/* Void label */}
+          {/* === TEXT CONTENT (center) === */}
+          <div className="flex-1 text-center lg:text-left min-w-0">
             <motion.div variants={fadeUp} initial="hidden" animate="visible" className="mb-4">
               <span className="text-xs font-mono tracking-widest void-flicker"
                 style={{ color: 'rgba(0,229,255,0.5)', letterSpacing: '0.2em' }}>
@@ -102,7 +89,6 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* Tagline badge */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" className="mb-4">
               <span className="text-xs font-mono tracking-widest void-flicker"
                 style={{ color: '#c084fc', border: '1px solid rgba(123,47,255,0.35)', padding: '2px 12px' }}>
@@ -110,47 +96,43 @@ export default function Hero() {
               </span>
             </motion.div>
 
-            {/* Name with glitch */}
             <motion.h1
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.1 }}
-              className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-2 glitch"
+              className="text-4xl md:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-2 glitch"
               data-text={personal.name}
               style={{ textShadow: '0 0 40px rgba(192,132,252,0.3)' }}
             >
               {personal.name}
             </motion.h1>
 
-            {/* Typing titles */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
               <TypingEffect />
             </motion.div>
 
-            {/* Summary */}
             <motion.p
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.3 }}
-              className="mt-6 max-w-2xl text-gray-400 text-sm md:text-base leading-relaxed font-mono"
+              className="mt-5 max-w-xl text-gray-400 text-sm leading-relaxed font-mono"
             >
               {personal.summary}
             </motion.p>
 
-            {/* CTA buttons */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.4 }}
-              className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
+              className="mt-7 flex flex-wrap gap-4 justify-center lg:justify-start"
             >
               <a
                 href="#projects"
                 onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="px-8 py-3 font-mono text-sm tracking-widest font-bold transition-all duration-300 hover:scale-105"
+                className="px-7 py-3 font-mono text-sm tracking-widest font-bold transition-all duration-300 hover:scale-105"
                 style={{ background: 'rgba(123,47,255,0.8)', color: '#e9d5ff', boxShadow: '0 0 30px rgba(123,47,255,0.4)' }}
               >
                 VIEW PROJECTS
@@ -158,16 +140,80 @@ export default function Hero() {
               <a
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }); }}
-                className="px-8 py-3 font-mono text-sm tracking-widest transition-all duration-300 hover:scale-105"
+                className="px-7 py-3 font-mono text-sm tracking-widest transition-all duration-300 hover:scale-105"
                 style={{ color: '#00e5ff', border: '1px solid rgba(0,229,255,0.4)', boxShadow: '0 0 15px rgba(0,229,255,0.08)' }}
               >
                 CONTACT
               </a>
             </motion.div>
           </div>
+
+          {/* === JM LOGO (right) — pulsing electric circle === */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex-shrink-0 flex flex-col items-center gap-4"
+          >
+            <div className="relative flex items-center justify-center" style={{ width: 220, height: 220 }}>
+
+              {/* Pulsing radar rings */}
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    border: `1px solid ${i % 2 === 0 ? 'rgba(123,47,255,0.7)' : 'rgba(0,229,255,0.5)'}`,
+                  }}
+                  animate={{ scale: [1, 1.7, 2.2], opacity: [0.9, 0.4, 0] }}
+                  transition={{
+                    duration: 2.8,
+                    repeat: Infinity,
+                    delay: i * 0.9,
+                    ease: 'easeOut',
+                  }}
+                />
+              ))}
+
+              {/* Glowing circle border */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                style={{ border: '2px solid rgba(123,47,255,0.6)' }}
+                animate={{
+                  boxShadow: [
+                    '0 0 12px rgba(123,47,255,0.6), 0 0 30px rgba(123,47,255,0.2)',
+                    '0 0 20px rgba(0,229,255,0.7), 0 0 50px rgba(0,229,255,0.2)',
+                    '0 0 12px rgba(192,132,252,0.6), 0 0 30px rgba(192,132,252,0.2)',
+                    '0 0 12px rgba(123,47,255,0.6), 0 0 30px rgba(123,47,255,0.2)',
+                  ],
+                  borderColor: [
+                    'rgba(123,47,255,0.6)',
+                    'rgba(0,229,255,0.6)',
+                    'rgba(192,132,252,0.6)',
+                    'rgba(123,47,255,0.6)',
+                  ],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              />
+
+              {/* Logo image */}
+              <div className="relative w-48 h-48 rounded-full overflow-hidden" style={{ zIndex: 1 }}>
+                <Image
+                  src="/Code_Generated_Image.png"
+                  alt="JM Logo"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
-        {/* Metric cards — full width below */}
+        {/* Metric cards */}
         <MetricCards />
 
         {/* Scroll indicator */}
