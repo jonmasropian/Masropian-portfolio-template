@@ -37,7 +37,7 @@ export default function SkillBadge({ skill, variant = 'purple' }: Props) {
     <motion.div
       variants={scaleIn}
       whileHover={{ scale: 1.05, borderColor: hoverBorder, boxShadow: hoverShadow }}
-      onHoverStart={handleHoverStart}
+      onMouseEnter={handleHoverStart}
       className="px-3 py-1.5 text-xs font-mono transition-all duration-200"
       style={{ border: `1px solid ${borderColor}`, background: bgColor, color: textColor }}
     >
