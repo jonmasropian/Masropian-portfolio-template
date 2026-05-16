@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { personal } from '@/data/portfolio';
 import { fadeUp } from '@/lib/animations';
 import { scrollToSection } from '@/lib/scroll';
+import { Typewriter } from '@/components/ui/Typewriter';
 import TypingEffect from './TypingEffect';
 import MetricCards from './MetricCards';
 
@@ -92,7 +93,7 @@ export default function Hero() {
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-2 glitch"
+              className="text-6xl md:text-8xl xl:text-8xl font-bold tracking-tight text-white mb-2 glitch"
               data-text={personal.name}
               style={{ textShadow: '0 0 40px rgba(192,132,252,0.3)' }}
             >
@@ -103,15 +104,24 @@ export default function Hero() {
               <TypingEffect />
             </motion.div>
 
-            <motion.p
+            <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="visible"
               transition={{ delay: 0.3 }}
-              className="mt-5 max-w-xl text-gray-400 text-sm leading-relaxed font-mono"
+              className="mt-5 max-w-xl text-gray-400 text-base leading-relaxed font-mono min-h-[5rem]"
             >
-              {personal.summary}
-            </motion.p>
+              <Typewriter
+                words={[
+                  'Disciplined IT and Full Stack Web Development professional with 22 years of U.S. Army service as a Signal/Communications Technician.',
+                  'Combines deep technical expertise in secure network operations, systems support, and cybersecurity compliance with modern web development skills.',
+                  'CompTIA Security+ certified. Mission-first reliability, clear communication, and the ability to thrive under pressure in high-stakes environments.',
+                ]}
+                speed={35}
+                delayBetweenWords={3000}
+                cursorChar="_"
+              />
+            </motion.div>
 
             <motion.div
               variants={fadeUp}
